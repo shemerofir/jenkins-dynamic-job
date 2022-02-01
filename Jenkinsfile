@@ -103,10 +103,10 @@ pipeline {
         }
         stage('checkout scm') {
             steps {
-                //Mkdir if not exist for the repo
-                sh "mkdir -p ${REPO}"
+                //Mkdir if not exist for the params.REPO
+                sh "mkdir -p ${params.REPO}"
                 //Changing workdir to the previous dir created
-                dir(path: "${REPO}"){
+                dir(path: "${params.REPO}"){
                     //Pulling the git repo
                     git branch: "${params.BRANCH}", 
                         poll: false, 
@@ -117,25 +117,25 @@ pipeline {
         
         stage('Docker Build and Tag') {
             steps {
-                dir(path: "${REPO}"){
+                dir(path: "${params.REPO}"){
                     //BUilding the image
-                    sh "docker build -t ${REPO}:latest ."
+                    sh "docker build -t ${params.REPO}:latest ."
                     // TAggin the image to the latest and the current build tag
-                    sh "docker tag ${REPO} ${dockerHubUser}/${REPO}:latest"
-                    sh "docker tag ${REPO} ${dockerHubUser}/${REPO}:$BUILD_NUMBER"
+                    sh "docker tag ${params.REPO} ${dockerHubUser}/${params.REPO}:latest"
+                    sh "docker tag ${params.REPO} ${dockerHubUser}/${params.REPO}:$BUILD_NUMBER"
                 }
 
             }
         }
         stage('Publish image to Docker Hub') {
             steps {
-                dir(path: "${REPO}"){
+                dir(path: "${params.REPO}"){
                     //Using docker push plugin and dockerhub credentials, blank url for docker hub registry
                     //Uses docker-pipeline plugin
                     withDockerRegistry([credentialsId: "dockerHub", url: ""]) {
                         //Pushing both (latest and build number image)
-                        sh "docker push ${dockerHubUser}/${REPO}:latest"
-                        sh "docker push ${dockerHubUser}/${REPO}:$BUILD_NUMBER"
+                        sh "docker push ${dockerHubUser}/${params.REPO}:latest"
+                        sh "docker push ${dockerHubUser}/${params.REPO}:$BUILD_NUMBER"
                     }
                 }
             }
