@@ -23,7 +23,7 @@
    - Includes the parameters configurations
    - Also build, tags and push to docker hub the image as REPO-NAME:latest
 3. **Run the job and provide the parameters from the jenkins dashboard** (Click on Build with Parameters)![](assets/20220201_113141_image.png)
-
+   - If the first build fail is because of not specifying the parameters, you need to click on "Build with parameters"
 ---
 
 |
