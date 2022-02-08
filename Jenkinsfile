@@ -1,4 +1,3 @@
-def gitHubUser = "marvin-trezlabs"
 def dockerHubUser = "marvintrezlabs"
 
 def usernames = """return[
@@ -222,7 +221,7 @@ pipeline {
                     //Pulling the git repo
                     git branch: "${params.BRANCH}", 
                         poll: false, 
-                        url: "https://github.com/${gitHubUser}/${params.REPO}.git"
+                        url: "https://github.com/${params.USERNAME}/${params.REPO}.git"
                 }
             }
         }
