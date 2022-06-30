@@ -206,10 +206,15 @@ pipeline {
                                             script: "${branchScript}"
                                     ] 
                                 ]
-                            ]
+                            ],
+                             string(
+                                defaultValue: 'demoBranch', 
+                                name: 'BRANCHTOCREATE', 
+                                trim: true
+                            )
                             
                         ])
-                       string(name: 'BranchName', trim: true) 
+                        
                     ])
                     
                 }
