@@ -100,7 +100,7 @@ if (getRCBranches.equals(200)) {
 
 pipeline {
     agent any
-    script {
+    
                 properties([
                         //Creating the parameters, make sure you have Active Choice plugin installed
                         parameters([  [$class: 'ChoiceParameter', 
@@ -216,7 +216,7 @@ pipeline {
                         
                     ])
                     
-                }
+                
     stages {
         
         stage('checkout scm') {
