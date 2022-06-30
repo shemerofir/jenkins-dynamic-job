@@ -226,7 +226,7 @@ pipeline {
                 echo "${params.USERNAME}"
                 echo "${params.REPO}"
 
-                checkout([$class: 'GitSCM', branches: [[name: "${params.BRANCHTOCREATE}"]], extensions: [], userRemoteConfigs: [[url: 'https://github.com/'${params.USERNAME}'/'${params.REPO}'.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: "${params.BRANCHTOCREATE}"]], extensions: [], userRemoteConfigs: [[url: "https://github.com/${params.USERNAME}/${params.REPO}.git"]]])
 
             }
         }
