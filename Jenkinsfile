@@ -5,9 +5,12 @@ def usernames = """return[
 'nirgeier'
 ]""";
 
-def username=noUser
-def repository=noRepo
-def branchCreate=noBranch
+
+    environment {
+        username = 'noUser'
+        repository = 'noRepo'
+        branchCreate ='noBranch'
+    }
 
 //Script for the branch, you can reference the previous script value witn the "REPO" variable
 def credsId = """def credsNames = []
@@ -131,7 +134,7 @@ pipeline {
                                         //Calling local variable with the script as a string
                                         script: "${usernames}"
                                         
-                                        username =params.USERNAME
+                                        env.username = params.USERNAME
                                     ]
                                     
                                 ]
@@ -186,7 +189,7 @@ pipeline {
                                         //Calling local variable with the script as a string
                                         script: "${repoScript}"
 
-                                       repository = params.REPO 
+                                       env.repository = params.REPO 
                                     ]
                                     
                                 ]
@@ -220,7 +223,7 @@ pipeline {
                                 name: 'BRANCHTOCREATE', 
                                 trim: true
                                 script: [
-                                    branchCreate = params.BRANCHTOCREATE
+                                    env.branchCreate = params.BRANCHTOCREATE
                                 ]
                             )
                             
@@ -234,7 +237,7 @@ pipeline {
         }
         stage('checkout scm') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: $branchCreate]], extensions: [], userRemoteConfigs: [[url: 'https://github.com/${username}/${repository}.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: $env.branchCreate]], extensions: [], userRemoteConfigs: [[url: 'https://github.com/${env.username}/${env.repository}.git']]])
 
             }
         }
