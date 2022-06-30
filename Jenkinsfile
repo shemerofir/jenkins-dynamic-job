@@ -5,6 +5,10 @@ def usernames = """return[
 'nirgeier'
 ]""";
 
+def username=noUser
+def repository=noRepo
+def branchCreate=noBranch
+
 //Script for the branch, you can reference the previous script value witn the "REPO" variable
 def credsId = """def credsNames = []
 
@@ -128,6 +132,7 @@ pipeline {
                                         script: "${usernames}"
                                         
                                     ]
+                                    username=${params.USERNAME}
                                 ]
                             ],
                             [$class: 'ChoiceParameter', 
@@ -181,6 +186,7 @@ pipeline {
                                         script: "${repoScript}"
                                         
                                     ]
+                                    repository=${REPO}
                                 ]
                             ],
                             //Cascade choice, means you can reference other choice values, like in this case, the REPO
@@ -211,6 +217,9 @@ pipeline {
                                 defaultValue: 'demoBranch', 
                                 name: 'BRANCHTOCREATE', 
                                 trim: true
+                                script: [
+                                    branchCreate=${params.BRANCHTOCREATE}
+                                ]
                             )
                             
                         ])
@@ -223,7 +232,7 @@ pipeline {
         }
         stage('checkout scm') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: 'params.BRANCHTOCREATE']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/${params.USERNAME}/${params.REPO}.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: $branchCreate]], extensions: [], userRemoteConfigs: [[url: 'https://github.com/${username}/${repository}.git']]])
 
             }
         }
