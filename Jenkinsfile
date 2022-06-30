@@ -96,13 +96,7 @@ if (getRCBranches.equals(200)) {
     return namesBr;
 }""";
 
-pipeline {
-    agent any
-    stages {
-        stage('Parameters'){
-            steps {
-                script {
-                properties([
+properties([
                         //Creating the parameters, make sure you have Active Choice plugin installed
                         parameters([  [$class: 'ChoiceParameter', 
                                 //Single combo-box item select type of choice
@@ -218,6 +212,14 @@ pipeline {
                     ])
                     
                 }
+
+pipeline {
+    agent any
+    stages {
+        stage('Parameters'){
+            steps {
+                script {
+                
                 
             }
         }
