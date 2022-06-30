@@ -207,10 +207,12 @@ pipeline {
                                     ] 
                                 ]
                             ]
-                            [string(name: 'BRANCHTOCREATE', trim: true)]
+                            
                         ])
+                        
                     ])
                 }
+                properties([parameters([string(name: 'BranchName', trim: true)])])
             }
         }
         stage('checkout scm') {
