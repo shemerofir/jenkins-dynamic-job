@@ -158,7 +158,7 @@ pipeline {
                             ],
                             [$class: 'CascadeChoiceParameter', 
                                 //Single combo-box item select type of choice
-                                choiceType: 'PT_SINGLE_SELECT', 
+                                choiceType: 'PT_CHECKBOX', 
                                 description: 'Select the Repository from the Dropdown List', 
                                 filterLength: 1, 
                                 filterable: true, 
