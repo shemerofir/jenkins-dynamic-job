@@ -211,8 +211,9 @@ pipeline {
                         ])
                         
                     ])
+                    parameters([string(name: 'BranchName', trim: true)])
                 }
-                properties([parameters([string(name: 'BranchName', trim: true)])])
+                
             }
         }
         stage('checkout scm') {
