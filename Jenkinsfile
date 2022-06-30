@@ -131,8 +131,9 @@ pipeline {
                                         //Calling local variable with the script as a string
                                         script: "${usernames}"
                                         
+                                        username =params.USERNAME
                                     ]
-                                    username=${params.USERNAME}
+                                    
                                 ]
                             ],
                             [$class: 'ChoiceParameter', 
@@ -184,9 +185,10 @@ pipeline {
                                         sandbox: false, 
                                         //Calling local variable with the script as a string
                                         script: "${repoScript}"
-                                        
+
+                                       repository = params.REPO 
                                     ]
-                                    repository=${REPO}
+                                    
                                 ]
                             ],
                             //Cascade choice, means you can reference other choice values, like in this case, the REPO
@@ -218,7 +220,7 @@ pipeline {
                                 name: 'BRANCHTOCREATE', 
                                 trim: true
                                 script: [
-                                    branchCreate=${params.BRANCHTOCREATE}
+                                    branchCreate = params.BRANCHTOCREATE
                                 ]
                             )
                             
