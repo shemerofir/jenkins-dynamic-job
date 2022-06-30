@@ -158,7 +158,7 @@ pipeline {
                             ],
                             [$class: 'CascadeChoiceParameter', 
                                 //Single combo-box item select type of choice
-                                choiceType: 'PT_CHECKBOX', 
+                                choiceType: 'PT_SINGLE_SELECT', 
                                 description: 'Select the Repository from the Dropdown List', 
                                 filterLength: 1, 
                                 filterable: true, 
@@ -207,6 +207,7 @@ pipeline {
                                     ] 
                                 ]
                             ]
+                            [string(name: 'BRANCHTOCREATE', trim: true)]
                         ])
                     ])
                 }
@@ -214,43 +215,10 @@ pipeline {
         }
         stage('checkout scm') {
             steps {
-                //Mkdir if not exist for the params.REPO
-                sh "mkdir -p ${params.REPO}"
-                //Changing workdir to the previous dir created
-                dir(path: "${params.REPO}"){
-                    //Pulling the git repo
-                    git branch: "${params.BRANCH}", 
-                        poll: false, 
-                        url: "https://github.com/${params.USERNAME}/${params.REPO}.git"
-                }
-            }
-        }
-        
-        stage('Docker Build and Tag') {
-            steps {
-                dir(path: "${params.REPO}"){
-                    //BUilding the image
-                    sh "docker build -t ${params.REPO}:latest ."
-                    // TAggin the image to the latest and the current build tag
-                    sh "docker tag ${params.REPO} ${dockerHubUser}/${params.REPO}:latest"
-                    sh "docker tag ${params.REPO} ${dockerHubUser}/${params.REPO}:$BUILD_NUMBER"
-                }
+                checkout([$class: 'GitSCM', branches: [[name: 'params.BRANCHTOCREATE']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/${params.USERNAME}/${params.REPO}.git']]])
 
             }
         }
-        stage('Publish image to Docker Hub') {
-            steps {
-                dir(path: "${params.REPO}"){
-                    //Using docker push plugin and dockerhub credentials, blank url for docker hub registry
-                    //Uses docker-pipeline plugin
-                    withDockerRegistry([credentialsId: "dockerHub", url: ""]) {
-                        //Pushing both (latest and build number image)
-                        sh "docker push ${dockerHubUser}/${params.REPO}:latest"
-                        sh "docker push ${dockerHubUser}/${params.REPO}:$BUILD_NUMBER"
-                    }
-                }
-            }
 
-        }
     }   
 }
