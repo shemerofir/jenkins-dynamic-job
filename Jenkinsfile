@@ -209,9 +209,9 @@ pipeline {
                             ]
                             
                         ])
-                        
+                       string(name: 'BranchName', trim: true) 
                     ])
-                    parameters([string(name: 'BranchName', trim: true)])
+                    
                 }
                 
             }
