@@ -225,7 +225,7 @@ pipeline {
         }
         stage('checkout scm') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: ${branchToCreate}]], extensions: [], userRemoteConfigs: [[url: 'https://github.com/${userToGo}/${repoToGo}.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: 'params.BRANCHTOCREATE']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/shemerofir/test1.git']]])
 
             }
         }
