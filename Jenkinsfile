@@ -1,5 +1,7 @@
 def dockerHubUser = "shemerofir"
-
+def branchToCreate = "branchcreated"
+def userToGo = "shemerofir"
+def repoToGo = "test1"
 def usernames = """return[
 'shemerofir',
 'nirgeier'
@@ -223,7 +225,7 @@ pipeline {
         }
         stage('checkout scm') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: 'params.BRANCHTOCREATE']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/${params.USERNAME}/${params.REPO}.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: ${branchToCreate}]], extensions: [], userRemoteConfigs: [[url: 'https://github.com/${userToGo}/${repoToGo}.git']]])
 
             }
         }
