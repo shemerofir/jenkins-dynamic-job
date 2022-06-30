@@ -100,10 +100,7 @@ if (getRCBranches.equals(200)) {
 
 pipeline {
     agent any
-    stages {
-        stage('Parameters'){
-            steps {
-                script {
+    script {
                 properties([
                         //Creating the parameters, make sure you have Active Choice plugin installed
                         parameters([  [$class: 'ChoiceParameter', 
@@ -220,9 +217,8 @@ pipeline {
                     ])
                     
                 }
-                
-            }
-        }
+    stages {
+        
         stage('checkout scm') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: 'params.BRANCHTOCREATE']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/shemerofir/test1.git']]])
