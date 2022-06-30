@@ -1,7 +1,7 @@
-def dockerHubUser = "marvintrezlabs"
+def dockerHubUser = "shemerofir"
 
 def usernames = """return[
-'marvin-trezlabs',
+'shemerofir',
 'nirgeier'
 ]""";
 
