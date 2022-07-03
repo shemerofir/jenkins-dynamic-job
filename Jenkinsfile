@@ -222,7 +222,9 @@ pipeline {
             }
         }
         stage(checkRepos){
-            echo "${params.REPO}"
+            step(){
+                echo "${params.REPO}"
+            }
         }
         stage('checkout scm') {
             when{
