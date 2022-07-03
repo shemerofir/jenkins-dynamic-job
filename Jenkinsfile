@@ -232,7 +232,7 @@ pipeline {
                 sh "git clone https://github.com/${params.USERNAME}/${params.REPO}.git"
                 sh "git checkout -b ${params.BRANCHTOCREATE}"
                 echo "*********branch ${params.BRANCHTOCREATE} created!*************"
-                sh "git push https://github.com/${params.USERNAME}/${params.REPO}"
+                sh "git push -u origin ${params.BRANCHTOCREATE}"
             }
         }
 
