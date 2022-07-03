@@ -225,12 +225,9 @@ pipeline {
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
                 echo "${params.REPO}"
-                script: [
-                    sh "rmdir -rf jenkins-dynamic-job"
-                    sh "git clone https://github.com/${params.USERNAME}/${params.REPO}.git"
-                    sh "git checkout -b ${params.BRANCHTOCREATE}"
-                    
-                ]
+                sh "rm -rf jenkins-dynamic-job"
+                sh "git clone https://github.com/${params.USERNAME}/${params.REPO}.git"
+                sh "git checkout -b ${params.BRANCHTOCREATE}"
                 echo "*********branch ${params.BRANCHTOCREATE} created!*************"
             }
         }
