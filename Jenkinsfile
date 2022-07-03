@@ -1,4 +1,4 @@
-def dockerHubUser = "shemerofir"
+//def dockerHubUser = "shemerofir"
 def usernames = """return[
 'shemerofir',
 'nirgeier'
@@ -229,10 +229,10 @@ pipeline {
                 echo "${params.USERNAME}"
                 echo "${params.REPO}"
                 sh "rm -rf ${params.REPO}"
-                sh "git clone https://github.com/${params.USERNAME}/${params.REPO}.git"
+                sh "git clone git@github.com/${params.USERNAME}/${params.REPO}.git"
                 sh "git checkout -b ${params.BRANCHTOCREATE}"
                 echo "*********branch ${params.BRANCHTOCREATE} created!*************"
-                sh "git push -u https://github.com/${params.USERNAME}/${params.REPO}.git ${params.BRANCHTOCREATE}"
+                sh "git push -u origin ${params.BRANCHTOCREATE}"
             }
         }
 
