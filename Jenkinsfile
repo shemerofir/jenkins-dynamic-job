@@ -157,7 +157,7 @@ pipeline {
                             ],
                             [$class: 'CascadeChoiceParameter', 
                                 //Single combo-box item select type of choice
-                                choiceType: 'PT_SINGLE_SELECT', 
+                                choiceType: 'PT_CHECKBOX', 
                                 description: 'Select the Repository from the Dropdown List', 
                                 filterLength: 1, 
                                 filterable: true, 
@@ -195,20 +195,20 @@ pipeline {
                                     [$class: 'GroovyScript', 
                                     fallbackScript: [
                                             classpath: [], 
-                                            sandbox: false, 
+                                            sandbox: false,
                                             script: "return['Could not get Branch from the Repo']"
-                                            ], 
+                                            ],
                                     script: [
-                                            classpath: [], 
-                                            sandbox: false, 
+                                            classpath: [],
+                                            sandbox: false,
                                             //branchScript variable
                                             script: "${branchScript}"
                                     ] 
                                 ]
                             ],
                              string(
-                                defaultValue: 'ENTER-BRANCH-NAME', 
-                                name: 'BRANCHTOCREATE', 
+                                defaultValue: 'ENTER-BRANCH-NAME',
+                                name: 'BRANCHTOCREATE',
                                 trim: true
                             )
                             
@@ -236,5 +236,5 @@ pipeline {
             }
         }
 
-    }   
+    }
 }
