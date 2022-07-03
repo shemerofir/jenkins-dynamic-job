@@ -210,6 +210,7 @@ pipeline {
                                 defaultValue: 'ENTER-BRANCH-NAME',
                                 name: 'BRANCHTOCREATE',
                                 trim: true
+                                
                             )
                             
                         ])
@@ -219,6 +220,9 @@ pipeline {
                 }
                 
             }
+        }
+        stage(checkRepos){
+            echo "${params.REPO}"
         }
         stage('checkout scm') {
             when{
