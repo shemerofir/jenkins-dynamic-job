@@ -236,7 +236,7 @@ pipeline {
                 sh "git push git@github.com:${params.USERNAME}/${params.REPO}.git"
             }
         }
-        stage(){
+        stage('echos'){
             steps{
                 sh """repoList = ${params.REPO}
                 for repo in ${repoList}
