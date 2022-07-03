@@ -221,11 +221,6 @@ pipeline {
                 
             }
         }
-        stage(checkRepos){
-            steps{
-                echo "${params.REPO}"
-            }
-        }
         stage('checkout scm') {
             when{
                 expression { params.BRANCHTOCREATE != 'ENTER-BRANCH-NAME'}
@@ -239,6 +234,14 @@ pipeline {
                 sh "git checkout -b ${params.BRANCHTOCREATE}"
                 echo "*********branch ${params.BRANCHTOCREATE} created!*************"
                 sh "git push git@github.com:${params.USERNAME}/${params.REPO}.git"
+            }
+        }
+        stage(){
+            steps{
+                sh """repoList = ${params.REPO}
+                for repo in ${repoList}
+                do
+                echo $repo"""
             }
         }
 
