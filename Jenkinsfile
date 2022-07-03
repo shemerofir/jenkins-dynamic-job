@@ -225,9 +225,13 @@ pipeline {
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
                 echo "${params.REPO}"
-
-                checkout([$class: 'GitSCM', branches: [[name: "${params.BRANCHTOCREATE}"]], extensions: [], userRemoteConfigs: [[url: "https://github.com/${params.USERNAME}/${params.REPO}.git"]]])
-
+                script: [
+                    sh "rmdir -rf jenkins-dynamic-job"
+                    sh "git clone https://github.com/${params.USERNAME}/${params.REPO}.git"
+                    sh "git checkout -b ${params.BRANCHTOCREATE}"
+                    
+                ]
+                echo "*********branch ${params.BRANCHTOCREATE} created!*************"
             }
         }
 
