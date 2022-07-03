@@ -222,7 +222,7 @@ pipeline {
             }
         }
         stage(checkRepos){
-            step(){
+            steps{
                 echo "${params.REPO}"
             }
         }
