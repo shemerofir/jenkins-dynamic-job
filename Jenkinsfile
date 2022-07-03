@@ -238,10 +238,12 @@ pipeline {
         }
         stage('echos'){
             steps{
-                sh """repoList = ${params.REPO}
+                sh """
+                repoList=${params.REPO}
                 for repo in ${repoList}
                 do
-                echo $repo"""
+                echo $repo
+                """
             }
         }
 
