@@ -207,7 +207,7 @@ pipeline {
                                 ]
                             ],
                              string(
-                                defaultValue: 'demoBranch', 
+                                defaultValue: 'ENTER-BRANCH-NAME', 
                                 name: 'BRANCHTOCREATE', 
                                 trim: true
                             )
@@ -221,11 +221,14 @@ pipeline {
             }
         }
         stage('checkout scm') {
+            when{
+                expression {return params.BRANCHTOCREATE}
+            }
             steps {
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
                 echo "${params.REPO}"
-                sh "rm -rf jenkins-dynamic-job"
+                sh "rm -rf ${params.REPO}"
                 sh "git clone https://github.com/${params.USERNAME}/${params.REPO}.git"
                 sh "git checkout -b ${params.BRANCHTOCREATE}"
                 echo "*********branch ${params.BRANCHTOCREATE} created!*************"
