@@ -222,7 +222,7 @@ pipeline {
         }
         stage('checkout scm') {
             when{
-                expression {return params.BRANCHTOCREATE}
+                expression { params.BRANCHTOCREATE != 'ENTER-BRANCH-NAME'}
             }
             steps {
                 echo "${params.BRANCHTOCREATE}"
@@ -232,7 +232,7 @@ pipeline {
                 sh "git clone https://github.com/${params.USERNAME}/${params.REPO}.git"
                 sh "git checkout -b ${params.BRANCHTOCREATE}"
                 echo "*********branch ${params.BRANCHTOCREATE} created!*************"
-                sh "git push -u origin ${params.BRANCHTOCREATE}"
+                sh "git push -u https://github.com/${params.USERNAME}/${params.REPO}.git ${params.BRANCHTOCREATE}"
             }
         }
 
