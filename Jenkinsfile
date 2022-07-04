@@ -4,6 +4,8 @@ def usernames = """return[
 'nirgeier'
 ]""";
 
+def IFS
+
 //Script for the branch, you can reference the previous script value witn the "REPO" variable
 def credsId = """def credsNames = []
 
@@ -227,7 +229,7 @@ pipeline {
             }
             steps {
 
-              
+                
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
                 
