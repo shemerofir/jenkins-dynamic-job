@@ -7,6 +7,7 @@ def usernames = """return[
 def IFS = ','
 def strarr
 String[] chosenRepos;
+def currentBranch;
 //def chosenRepo
 
 //Script for the branch, you can reference the previous script value witn the "REPO" variable
@@ -245,7 +246,7 @@ pipeline {
 
                     sh "rm -rf ${chosenRepo}"
                     sh "git clone git@github.com:${params.USERNAME}/${chosenRepo}.git"
-                    if ($(git branch --show-current)!=${params.BRANCHTOCREATE})
+                    if (git branch --show-current != ${params.BRANCHTOCREATE})
                             {sh "git checkout -b ${params.BRANCHTOCREATE}"}
                     echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${chosenRepo}!*************"
                     sh "git push git@github.com:${params.USERNAME}/${chosenRepo}.git"
