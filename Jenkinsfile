@@ -4,7 +4,7 @@ def usernames = """return[
 'nirgeier'
 ]""";
 
-def IFS
+def IFS = ','
 def strarr
 
 //Script for the branch, you can reference the previous script value witn the "REPO" variable
@@ -234,7 +234,7 @@ pipeline {
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
                 
-                   sh """ IFS=','
+                   sh """
                    echo ${IFS}
                    read -a ${strarr} <<< "${params.REPO}"
                     for repo in ${strarr}; do
