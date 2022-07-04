@@ -237,14 +237,14 @@ pipeline {
                 
             script {
 
-                str = params.REPO.split(',');
+                chosenRepos = params.REPO.split(',');
                  
-                for( String repo : chosenRepos )
-                    sh "rm -rf ${repo}"
-                    sh "git clone git@github.com:${params.USERNAME}/${repo}.git"
+                for( String chosenRepo : chosenRepos )
+                    sh "rm -rf ${chosenRepo}"
+                    sh "git clone git@github.com:${params.USERNAME}/${chosenRepo}.git"
                     sh "git checkout -b ${params.BRANCHTOCREATE}"
-                    echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${repo}!*************"
-                    sh "git push git@github.com:${params.USERNAME}/${repo}.git"
+                    echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${chosenRepo}!*************"
+                    sh "git push git@github.com:${params.USERNAME}/${chosenRepo}.git"
                 }
 
                 // sh """ 
