@@ -248,7 +248,7 @@ pipeline {
                     echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${chosenRepo}!*************"
                     sh "git push git@github.com:${params.USERNAME}/${chosenRepo}.git"
                     }
-                }
+            }
 
                 // sh """ 
                 //    read -a ${strarr} <<< "${params.REPO}"
