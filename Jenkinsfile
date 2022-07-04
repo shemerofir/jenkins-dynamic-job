@@ -228,7 +228,7 @@ pipeline {
             steps {
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
-                echo "${params.REPO}=>repos.txt"
+                echo "${params.REPO} >> repos.txt"
                 sh "readarray -t arr <repos.txt"
 
                 sh """for repo in ${arr}; do
