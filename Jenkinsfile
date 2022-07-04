@@ -234,7 +234,7 @@ pipeline {
                    sh "IFS=','"
                    sh "echo ${IFS}"
                    sh "read -a ${strarr} <<< "${params.REPO}""
-                    sh """for repo in ${strarr[@]}; do
+                    sh """for repo in ${strarr}; do
                     rm -rf ${repo}
                     git clone git@github.com:${params.USERNAME}/${repo}.git
                     git checkout -b ${params.BRANCHTOCREATE}
