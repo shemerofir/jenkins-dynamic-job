@@ -179,8 +179,7 @@ pipeline {
                                         sandbox: false, 
                                         //Calling local variable with the script as a string
                                         script: "${repoScript}"
-                                        echo "${repoScript}"
-                                        
+                                                                                
                                     ]
                                 ]
                             ],
