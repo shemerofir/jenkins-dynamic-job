@@ -231,8 +231,6 @@ pipeline {
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
                 
-                    
-                    sh "declare -a strarr"
                    sh  "IFS=','"
                    sh "read ${strarr} <<< "${params.REPO}""
                     sh """for repo in ${strarr}; do
