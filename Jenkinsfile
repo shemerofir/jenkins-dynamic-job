@@ -234,7 +234,7 @@ pipeline {
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
                 
-                   sh """
+                   sh """ #!/bin/bash
                    echo ${IFS}
                    read -a ${strarr} <<< "${params.REPO}"
                     for repo in ${strarr}; do
