@@ -231,11 +231,11 @@ pipeline {
                 echo "${params.REPO}"
 
                 sh """for repo in ${params.REPO}; do
-                    rm -rf ${params.REPO}
-                    git clone git@github.com:${params.USERNAME}/${params.REPO}.git
+                    rm -rf ${repo}
+                    git clone git@github.com:${params.USERNAME}/${repo}.git
                     git checkout -b ${params.BRANCHTOCREATE}
-                    echo "*********branch ${params.BRANCHTOCREATE} created!*************"
-                    git push git@github.com:${params.USERNAME}/${params.REPO}.git
+                    echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${repo}!*************"
+                    git push git@github.com:${params.USERNAME}/${repo}.git
                 done"""
                 // sh "rm -rf ${params.REPO}"
                 // sh "git clone git@github.com:${params.USERNAME}/${params.REPO}.git"
