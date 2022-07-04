@@ -228,21 +228,20 @@ pipeline {
             steps {
 
               script {
-                env.strarr=""
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
-                sh """
+                
                     
-                    
-                    IFS=','
-                    read ${strarr} <<< "${params.REPO}"
-                    for repo in ${strarr}; do
+                    sh "declare -a strarr"
+                   sh  "IFS=','"
+                   sh "read ${strarr} <<< "${params.REPO}""
+                sh "for repo in ${strarr}; do
                     rm -rf ${repo}
                     git clone git@github.com:${params.USERNAME}/${repo}.git
                     git checkout -b ${params.BRANCHTOCREATE}
                     echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${repo}!*************"
                     git push git@github.com:${params.USERNAME}/${repo}.git
-                    done"""}
+                    done"}
                 // sh "rm -rf ${params.REPO}"
                 // sh "git clone git@github.com:${params.USERNAME}/${params.REPO}.git"
                 // sh "git checkout -b ${params.BRANCHTOCREATE}"
