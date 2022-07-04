@@ -227,7 +227,7 @@ pipeline {
             }
             steps {
 
-              script {
+              
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
                 
@@ -240,7 +240,7 @@ pipeline {
                     git checkout -b ${params.BRANCHTOCREATE}
                     echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${repo}!*************"
                     git push git@github.com:${params.USERNAME}/${repo}.git
-                    done"""}
+                    done"""
                 // sh "rm -rf ${params.REPO}"
                 // sh "git clone git@github.com:${params.USERNAME}/${params.REPO}.git"
                 // sh "git checkout -b ${params.BRANCHTOCREATE}"
