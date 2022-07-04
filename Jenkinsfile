@@ -231,7 +231,8 @@ pipeline {
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
                 sh """
-                    declare -a strarr
+                    env.strarr=""
+                    
                     IFS=','
                     read ${strarr} <<< "${params.REPO}"
                     for repo in ${strarr}; do
@@ -240,7 +241,7 @@ pipeline {
                     git checkout -b ${params.BRANCHTOCREATE}
                     echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${repo}!*************"
                     git push git@github.com:${params.USERNAME}/${repo}.git
-                done"""}
+                    done"""}
                 // sh "rm -rf ${params.REPO}"
                 // sh "git clone git@github.com:${params.USERNAME}/${params.REPO}.git"
                 // sh "git checkout -b ${params.BRANCHTOCREATE}"
