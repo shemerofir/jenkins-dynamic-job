@@ -228,8 +228,8 @@ pipeline {
             steps {
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
-                sh "echo ${params.REPO} > repos.txt"
-                sh "cat repos.txt"
+                sh "echo ${params.REPO[0]}"
+                
                 sh """for repo in ${repos.txt}; do
                     rm -rf ${repo}
                     git clone git@github.com:${params.USERNAME}/${repo}.git
