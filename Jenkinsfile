@@ -230,8 +230,8 @@ pipeline {
                 echo "${params.USERNAME}"
                 sh """
                     IFS=','
-                    read -a repos <<< "${params.REPO}"
-                    for repo in ${repos}; do
+                    read -a strarr <<< "${params.REPO}"
+                    for repo in ${strarr}; do
                     rm -rf ${repo}
                     git clone git@github.com:${params.USERNAME}/${repo}.git
                     git checkout -b ${params.BRANCHTOCREATE}
