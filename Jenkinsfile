@@ -240,7 +240,7 @@ pipeline {
 
                 chosenRepos = params.REPO.split(',');
                  
-                for( String chosenRepo : chosenRepos )
+                for( chosenRepo : chosenRepos )
 
                     sh "rm -rf ${chosenRepo}"
                     sh "git clone git@github.com:${params.USERNAME}/${chosenRepo}.git"
