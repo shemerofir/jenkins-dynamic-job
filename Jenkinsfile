@@ -5,6 +5,7 @@ def usernames = """return[
 ]""";
 
 def IFS
+def strarr
 
 //Script for the branch, you can reference the previous script value witn the "REPO" variable
 def credsId = """def credsNames = []
