@@ -53,8 +53,7 @@ if (getRC.equals(200)) {
 
     item.each { repo ->
         names.push(repo.name);
-    }
-       
+    }   
     return names;
 }""";
 
@@ -179,7 +178,7 @@ pipeline {
                                         sandbox: false, 
                                         //Calling local variable with the script as a string
                                         script: "${repoScript}"
-                                                                                
+                                        
                                     ]
                                 ]
                             ],
