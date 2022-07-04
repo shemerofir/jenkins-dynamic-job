@@ -6,6 +6,7 @@ def usernames = """return[
 
 def IFS = ','
 def strarr
+String[] str;
 
 //Script for the branch, you can reference the previous script value witn the "REPO" variable
 def credsId = """def credsNames = []
@@ -234,16 +235,27 @@ pipeline {
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
                 
-                   sh """ #!/bin/bash
-                   echo ${IFS}
-                   read -a ${strarr} <<< "${params.REPO}"
-                    for repo in ${strarr}; do
-                    rm -rf ${repo}
-                    git clone git@github.com:${params.USERNAME}/${repo}.git
-                    git checkout -b ${params.BRANCHTOCREATE}
-                    echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${repo}!*************"
-                    git push git@github.com:${params.USERNAME}/${repo}.git
-                    done"""
+            script {
+
+                str = params.REPO.split(',');
+                 
+                for( String values : str )
+                println(values);
+                
+                }
+
+                // sh """ 
+                //    read -a ${strarr} <<< "${params.REPO}"
+                //     for repo in ${strarr}; do
+                //     rm -rf ${repo}
+                //     git clone git@github.com:${params.USERNAME}/${repo}.git
+                //     git checkout -b ${params.BRANCHTOCREATE}
+                //     echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${repo}!*************"
+                //     git push git@github.com:${params.USERNAME}/${repo}.git
+                //     done"""
+
+
+
                 // sh "rm -rf ${params.REPO}"
                 // sh "git clone git@github.com:${params.USERNAME}/${params.REPO}.git"
                 // sh "git checkout -b ${params.BRANCHTOCREATE}"
