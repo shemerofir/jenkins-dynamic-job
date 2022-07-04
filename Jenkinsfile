@@ -246,7 +246,7 @@ pipeline {
 
                     sh "rm -rf ${chosenRepo}"
                     sh "git clone git@github.com:${params.USERNAME}/${chosenRepo}.git"
-                    sh "currentBranch=${git branch --show-current}"
+                    sh "currentBranch=\$(git branch --show-current)"
                     echo ${currentBranch}
                     if (${currentBranch} != ${params.BRANCHTOCREATE}){
                             sh "git checkout -b ${params.BRANCHTOCREATE}"}
