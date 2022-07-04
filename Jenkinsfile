@@ -240,13 +240,14 @@ pipeline {
 
                 chosenRepos = params.REPO.split(',');
                  
-                for( def chosenRepo in chosenRepos )
+                for( def chosenRepo in chosenRepos ){
 
                     sh "rm -rf ${chosenRepo}"
                     sh "git clone git@github.com:${params.USERNAME}/${chosenRepo}.git"
                     sh "git checkout -b ${params.BRANCHTOCREATE}"
                     echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${chosenRepo}!*************"
                     sh "git push git@github.com:${params.USERNAME}/${chosenRepo}.git"
+                    }
                 }
 
                 // sh """ 
