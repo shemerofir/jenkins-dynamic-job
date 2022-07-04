@@ -7,6 +7,7 @@ def usernames = """return[
 def IFS = ','
 def strarr
 String[] chosenRepos;
+def chosenRepo
 
 //Script for the branch, you can reference the previous script value witn the "REPO" variable
 def credsId = """def credsNames = []
@@ -239,7 +240,9 @@ pipeline {
 
                 chosenRepos = params.REPO.split(',');
                  
-                for( String chosenRepo : chosenRepos )
+                for( String value : chosenRepos )
+
+                    chosenRepo = ${value}
                     sh "rm -rf ${chosenRepo}"
                     sh "git clone git@github.com:${params.USERNAME}/${chosenRepo}.git"
                     sh "git checkout -b ${params.BRANCHTOCREATE}"
