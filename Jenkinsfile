@@ -228,10 +228,11 @@ pipeline {
             steps {
 
               script {
+                env.strarr=""
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
                 sh """
-                    env.strarr=""
+                    
                     
                     IFS=','
                     read ${strarr} <<< "${params.REPO}"
