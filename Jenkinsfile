@@ -243,7 +243,7 @@ pipeline {
                     sh "rm -rf ${repo}"
                     sh "git clone git@github.com:${params.USERNAME}/${repo}.git"
                     sh "git checkout -b ${params.BRANCHTOCREATE}"
-                    sh "echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${repo}!*************""
+                    echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${repo}!*************"
                     sh "git push git@github.com:${params.USERNAME}/${repo}.git"
                 }
 
