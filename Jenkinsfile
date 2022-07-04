@@ -228,10 +228,10 @@ pipeline {
             steps {
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
-                echo "${params.REPO}"
-                
+                echo "${params.REPO}=>repos.txt"
+                sh "readarray -t arr <repos.txt"
 
-                sh """for repo in ${params.REPO[@]}; do
+                sh """for repo in ${arr}; do
                     rm -rf ${repo}
                     git clone git@github.com:${params.USERNAME}/${repo}.git
                     git checkout -b ${params.BRANCHTOCREATE}
