@@ -231,8 +231,9 @@ pipeline {
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
                 sh """
+                    declare -a strarr
                     IFS=','
-                    read -a strarr <<< "${params.REPO}"
+                    read ${strarr} <<< "${params.REPO}"
                     for repo in ${strarr}; do
                     rm -rf ${repo}
                     git clone git@github.com:${params.USERNAME}/${repo}.git
