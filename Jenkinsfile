@@ -232,7 +232,7 @@ pipeline {
                 echo "${params.USERNAME}"
                 
                    sh  "IFS=','"
-                   sh "read ${strarr} <<< "${params.REPO}""
+                   sh "read -a ${strarr} <<< "${params.REPO}""
                     sh """for repo in ${strarr}; do
                     rm -rf ${repo}
                     git clone git@github.com:${params.USERNAME}/${repo}.git
