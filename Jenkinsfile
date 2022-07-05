@@ -275,7 +275,7 @@ pipeline {
                         sh "git checkout -b ${params.BRANCHTOCREATE}"
                         env.BRANCH_NAME = params.BRANCHTOCREATE 
                         }
-                    else sh "git checkout ${params.BRANCHTOCREATE}"  
+                    //else sh "git checkout ${params.BRANCHTOCREATE}"  
 
                     echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${chosenRepo}!*************"
                     //sh "git add ."
