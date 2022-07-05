@@ -251,6 +251,9 @@ pipeline {
                  
                 for( def chosenRepo in chosenRepos ){
 
+                    sh "cd .."
+                    sh "mkdir repos"
+                    sh "cd repos"
                     sh "rm -rf ${chosenRepo}"
                     
                     sh "git clone --branch ${params.BRANCHTOCLONE} git@github.com:${params.USERNAME}/${chosenRepo}.git"
