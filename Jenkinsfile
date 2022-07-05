@@ -253,10 +253,11 @@ pipeline {
 
                     sh "rm -rf ${chosenRepo}"
                     
-                    sh "git clone --branch ${params.BRANCHTOCLONE} --single-branch git@github.com:${params.USERNAME}/${chosenRepo}.git"
+                    sh "git clone --branch ${params.BRANCHTOCLONE} git@github.com:${params.USERNAME}/${chosenRepo}.git"
+                    //sh "git clone --branch ${params.BRANCHTOCLONE} --single-branch git@github.com:${params.USERNAME}/${chosenRepo}.git"
                     //sh "git clone git@github.com:${params.USERNAME}/${chosenRepo}.git" 
                     sh "cd ${chosenRepo}"
-                    sh "git checkout ${params.BRANCHTOCLONE}"
+                    //sh "git checkout ${params.BRANCHTOCLONE}"
                     echo "you are on branch: ${env.BRANCH_NAME} "
 
                     if (env.BRANCH_NAME != params.BRANCHTOCREATE) {
