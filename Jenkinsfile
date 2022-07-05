@@ -251,7 +251,10 @@ pipeline {
                 chosenRepos = params.REPO.split(',');
 
                     sh '''#!/bin/bash 
-                        mkdir ../repos && cd ../repos
+                        mkdir ../repos;
+                        pwd;
+                        cd ../repos;
+                        pwd;
                         ''' 
                 
                  
@@ -262,7 +265,8 @@ pipeline {
                     sh "git clone --branch ${params.BRANCHTOCLONE} git@github.com:${params.USERNAME}/${chosenRepo}.git"
                     //sh "git clone --branch ${params.BRANCHTOCLONE} --single-branch git@github.com:${params.USERNAME}/${chosenRepo}.git"
                     //sh "git clone git@github.com:${params.USERNAME}/${chosenRepo}.git" 
-                    sh """#!/bin/bash cd ${chosenRepo}"""
+                    sh """#!/bin/bash
+                     cd ${chosenRepo}"""
                     //sh "git checkout ${params.BRANCHTOCLONE}"
                     echo "you are on branch: ${env.BRANCH_NAME} "
 
