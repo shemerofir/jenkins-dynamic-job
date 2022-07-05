@@ -255,7 +255,7 @@ pipeline {
                     
                     sh "git clone --branch ${params.BRANCHTOCLONE} --single-branch git@github.com:${params.USERNAME}/${chosenRepo}.git"
                     //sh "git clone git@github.com:${params.USERNAME}/${chosenRepo}.git" 
-                    sh "cd chosenRepo"
+                    sh "cd ${chosenRepo}"
                     sh "git checkout ${params.BRANCHTOCLONE}"
                     echo "you are on branch: ${env.BRANCH_NAME} "
 
