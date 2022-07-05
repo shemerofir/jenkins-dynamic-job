@@ -239,7 +239,7 @@ pipeline {
                 expression { params.BRANCHTOCLONE != 'ENTER-BRANCH-CLONE-SOURCE'}
             }
             steps {
-
+                cleanWs()
                 
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
@@ -270,7 +270,9 @@ pipeline {
                     else sh "git checkout ${params.BRANCHTOCREATE}"  
 
                     echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${chosenRepo}!*************"
-                    sh """git add .; git commit -m "copied ${chosenRepo}"; git push git@github.com:${params.USERNAME}/${chosenRepo}.git"""
+                    sh "git add ."
+                    sh ""git commit -m "copied ${chosenRepo}"""
+                    sh "git push -–set-upstream git@github.com:${params.USERNAME}/${chosenRepo}.git"
                     sh "cd .."
                     sh "rm -rf ${chosenRepo}"
                     }
