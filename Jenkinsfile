@@ -267,7 +267,7 @@ pipeline {
                     else sh "git checkout ${params.BRANCHTOCREATE}"  
 
                     echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${chosenRepo}!*************"
-                    sh "git push git@github.com:${params.USERNAME}/${chosenRepo}.git"
+                    sh """git add .; git commit -m "copied ${chosenRepo}"; git push git@github.com:${params.USERNAME}/${chosenRepo}.git"""
                     sh "cd .."
                     sh "rm -rf ${chosenRepo}"
                     }
