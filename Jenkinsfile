@@ -273,7 +273,7 @@ pipeline {
 
                     echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${chosenRepo}!*************"
                     sh "git add ."
-                    sh ""git commit -m "copied ${chosenRepo}"""
+                    sh """git commit -m "copied ${chosenRepo}" """
                     sh "git push -–set-upstream git@github.com:${params.USERNAME}/${chosenRepo}.git"
                     sh "cd .."
                     sh "rm -rf ${chosenRepo}"
