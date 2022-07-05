@@ -256,7 +256,8 @@ pipeline {
                     sh "git clone --branch ${params.BRANCHTOCLONE} --single-branch git@github.com:${params.USERNAME}/${chosenRepo}.git"
                     //sh "git clone git@github.com:${params.USERNAME}/${chosenRepo}.git" 
                     
-                    sh """if [ $(git branch -a | grep ${params.BRANCHTOCREATE}) -z ]; then
+                    sh """if [ $(git branch -a | grep ${params.BRANCHTOCREATE}) -z ]
+                    then
                     git checkout -b ${params.BRANCHTOCREATE}
                     fi
                     """
@@ -288,4 +289,5 @@ pipeline {
 
 
     }
+    
 }
