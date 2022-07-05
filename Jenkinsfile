@@ -250,10 +250,9 @@ pipeline {
 
                 chosenRepos = params.REPO.split(',');
 
-                    
-                    sh "cd .."
-                    sh "mkdir repos"
-                    sh "cd repos"
+                    sh '''#!/bin/bash 
+                        mkdir ../repos && cd ../repos
+                        ''' 
                 
                  
                 for( def chosenRepo in chosenRepos ){
@@ -300,8 +299,8 @@ pipeline {
                 // echo "*********branch ${params.BRANCHTOCREATE} created!*************"
                 // sh "git push git@github.com:${params.USERNAME}/${params.REPO}.git"
 
-                sh "cd ../../"
-                sh "rm -rf ${repos}"
+                
+                sh "rm -rf ../repos"
             }
         }
 
