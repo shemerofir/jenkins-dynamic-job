@@ -239,7 +239,7 @@ pipeline {
                 expression { params.BRANCHTOCLONE != 'ENTER-BRANCH-CLONE-SOURCE'}
             }
             steps {
-                cleanWs()
+                
                 
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
