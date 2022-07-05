@@ -245,7 +245,7 @@ pipeline {
                 echo "${params.USERNAME}"
                
             script {
-                
+
                 sh """git config --global user.email "shemerofir@gmail.com" && git config --global user.name "shemerofir" """
 
                 chosenRepos = params.REPO.split(',');
@@ -276,7 +276,7 @@ pipeline {
                     echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${chosenRepo}!*************"
                     sh "git add ."
                     sh """git commit -m "copied ${chosenRepo}" """
-                    sh "git push -–set-upstream git@github.com:${params.USERNAME}/${chosenRepo}.git"
+                    sh "git push --set-upstream git@github.com:${params.USERNAME}/${chosenRepo}.git"
                     sh "cd .."
                     sh "rm -rf ${chosenRepo}"
                     }
