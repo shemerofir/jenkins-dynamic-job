@@ -243,17 +243,19 @@ pipeline {
                 
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
-                
+               
             script {
 
                 chosenRepos = params.REPO.split(',');
+
+                    
+                    sh "cd .."
+                    sh "mkdir repos"
+                    sh "cd repos"
                 
                  
                 for( def chosenRepo in chosenRepos ){
 
-                    sh "cd .."
-                    sh "mkdir repos"
-                    sh "cd repos"
                     sh "rm -rf ${chosenRepo}"
                     
                     sh "git clone --branch ${params.BRANCHTOCLONE} git@github.com:${params.USERNAME}/${chosenRepo}.git"
@@ -295,6 +297,9 @@ pipeline {
                 // sh "git checkout -b ${params.BRANCHTOCREATE}"
                 // echo "*********branch ${params.BRANCHTOCREATE} created!*************"
                 // sh "git push git@github.com:${params.USERNAME}/${params.REPO}.git"
+
+                sh "cd ../../"
+                sh "rm -rf ${repos}"
             }
         }
 
