@@ -266,7 +266,7 @@ pipeline {
                     //sh "git clone --branch ${params.BRANCHTOCLONE} --single-branch git@github.com:${params.USERNAME}/${chosenRepo}.git"
                     //sh "git clone git@github.com:${params.USERNAME}/${chosenRepo}.git" 
                     
-                    dir(${chosenRepo}){
+                    dir($chosenRepo){
     
                     //sh "git checkout ${params.BRANCHTOCLONE}"
                     echo "you are on branch: ${env.BRANCH_NAME} "
@@ -282,7 +282,7 @@ pipeline {
                     sh """git commit -m "copied ${chosenRepo}" """
                     sh "git push --set-upstream git@github.com:${params.USERNAME}/${chosenRepo}.git"
                             }
-                            
+
                     sh "rm -rf ${chosenRepo}"
                     }}
             }
