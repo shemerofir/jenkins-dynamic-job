@@ -252,9 +252,10 @@ pipeline {
                 for( def chosenRepo in chosenRepos ){
 
                     sh "rm -rf ${chosenRepo}"
-                    sh ""
+                    
                     sh "git clone --branch ${params.BRANCHTOCLONE} --single-branch git@github.com:${params.USERNAME}/${chosenRepo}.git"
                     //sh "git clone git@github.com:${params.USERNAME}/${chosenRepo}.git" 
+                    sh "cd chosenRepo"
                     sh "git checkout ${params.BRANCHTOCLONE}"
                     echo "you are on branch: ${env.BRANCH_NAME} "
 
@@ -266,6 +267,7 @@ pipeline {
 
                     echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${chosenRepo}!*************"
                     sh "git push git@github.com:${params.USERNAME}/${chosenRepo}.git"
+                    sh "cd .."
                     sh "rm -rf ${chosenRepo}"
                     }
             }
