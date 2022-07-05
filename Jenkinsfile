@@ -213,6 +213,12 @@ pipeline {
                                 ]
                             ],
                              string(
+                                defaultValue: 'ENTER-BRANCH-CLONE-SOURCE',
+                                name: 'BRANCHTOCLONE',
+                                trim: true
+                                
+                            ),
+                             string(
                                 defaultValue: 'ENTER-BRANCH-NAME',
                                 name: 'BRANCHTOCREATE',
                                 trim: true
@@ -230,6 +236,7 @@ pipeline {
         stage('checkout scm') {
             when{
                 expression { params.BRANCHTOCREATE != 'ENTER-BRANCH-NAME'}
+                expression { params.BRANCHTOCLONE != 'ENTER-BRANCH-CLONE-SOURCE'}
             }
             steps {
 
@@ -245,13 +252,14 @@ pipeline {
                 for( def chosenRepo in chosenRepos ){
 
                     sh "rm -rf ${chosenRepo}"
-                    sh "git clone git@github.com:${params.USERNAME}/${chosenRepo}.git"
-                    sh "currentBranch=\$(git branch --show-current)"
-                    echo ${currentBranch}
-                    if (${currentBranch} != ${params.BRANCHTOCREATE}){
-                            sh "git checkout -b ${params.BRANCHTOCREATE}"}
+                    sh ""
+                    sh "git clone --branch ${params.BRANCHTOCLONE} --single-branch git@github.com:${params.USERNAME}/${chosenRepo}.git"
+                    //sh "git clone git@github.com:${params.USERNAME}/${chosenRepo}.git" 
+                    if((sh "[ git branch -a | grep ${params.BRANCHTOCREATE} -z ]")==0){
+                    sh "git checkout -b ${params.BRANCHTOCREATE}"}
                     echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${chosenRepo}!*************"
                     sh "git push git@github.com:${params.USERNAME}/${chosenRepo}.git"
+                    sh "rm -rf ${chosenRepo}"
                     }
             }
 
