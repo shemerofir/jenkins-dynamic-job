@@ -280,7 +280,8 @@ pipeline {
                     sh "git add ."
                     sh """git commit -m "copied ${chosenRepo}" """
                     sh "git push --set-upstream git@github.com:${params.USERNAME}/${chosenRepo}.git"
-                    sh """#!/bin/bash cd .."""
+                    sh '''#!/bin/bash
+                            cd .. '''
                     sh "rm -rf ${chosenRepo}"
                     }
             }
