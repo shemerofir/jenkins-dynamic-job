@@ -257,7 +257,7 @@ pipeline {
                         pwd;
                         ''' 
                 
-                 
+                dir('../repo') { 
                 for( def chosenRepo in chosenRepos ){
 
                     sh "rm -rf ${chosenRepo}"
@@ -283,7 +283,7 @@ pipeline {
                     sh '''#!/bin/bash
                             cd .. '''
                     sh "rm -rf ${chosenRepo}"
-                    }
+                    }}
             }
 
                 // sh """ 
