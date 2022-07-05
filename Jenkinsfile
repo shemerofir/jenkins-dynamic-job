@@ -284,7 +284,7 @@ pipeline {
 
                     //sh """git commit -m "copied ${chosenRepo}" """
 
-                    sh "git push --set-upstream git@github.com:${params.USERNAME}/${chosenRepo}.git"
+                    sh "git push git@github.com:${params.USERNAME}/${chosenRepo}.git"
                             }
 
                     sh "rm -rf ${chosenRepo}"
