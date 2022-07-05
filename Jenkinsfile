@@ -257,7 +257,7 @@ pipeline {
                         pwd;
                         ''' 
                 
-                dir('../repo') { 
+                dir('../repos') { 
                 for( def chosenRepo in chosenRepos ){
 
                     sh "rm -rf ${chosenRepo}"
