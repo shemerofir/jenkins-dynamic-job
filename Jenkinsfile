@@ -256,10 +256,10 @@ pipeline {
                     sh "git clone --branch ${params.BRANCHTOCLONE} --single-branch git@github.com:${params.USERNAME}/${chosenRepo}.git"
                     //sh "git clone git@github.com:${params.USERNAME}/${chosenRepo}.git" 
                     
-                    if (env.BRANCH_NAME != ${params.BRANCHTOCREATE}) {
+                    if (env.BRANCH_NAME != params.BRANCHTOCREATE) {
                         sh "git checkout -b ${params.BRANCHTOCREATE}"
                         }
-                        
+
                     echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${chosenRepo}!*************"
                     sh "git push git@github.com:${params.USERNAME}/${chosenRepo}.git"
                     sh "rm -rf ${chosenRepo}"
