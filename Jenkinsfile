@@ -255,11 +255,14 @@ pipeline {
                     sh ""
                     sh "git clone --branch ${params.BRANCHTOCLONE} --single-branch git@github.com:${params.USERNAME}/${chosenRepo}.git"
                     //sh "git clone git@github.com:${params.USERNAME}/${chosenRepo}.git" 
+                    sh "git checkout ${params.BRANCHTOCLONE}"
                     echo "you are on branch: ${env.BRANCH_NAME} "
+
                     if (env.BRANCH_NAME != params.BRANCHTOCREATE) {
                         sh "git checkout -b ${params.BRANCHTOCREATE}"
                         env.BRANCH_NAME = params.BRANCHTOCREATE 
                         }
+                    else sh "git checkout ${params.BRANCHTOCREATE}"  
 
                     echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${chosenRepo}!*************"
                     sh "git push git@github.com:${params.USERNAME}/${chosenRepo}.git"
