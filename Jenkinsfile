@@ -252,7 +252,7 @@ pipeline {
                                             `curl -s -o /dev/null -w "%{http_code}" https://api.github.com/repos/${params.USERNAME}/${chosenRepo}/branches/${params.BRANCHTOCLONE}`
                                             """,
                                             returnStatus: true,
-                                            returnStdout : true).trim()
+                                            returnStdout : true)
 
                         echo "temp branch exits value is : $tempBranchExist "
     
