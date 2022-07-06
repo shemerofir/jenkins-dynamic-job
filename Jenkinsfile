@@ -8,7 +8,7 @@ def usernames = """return[
 String[] chosenRepos
 def branchExist = 1
 //def chosenRepo
-def tempBranchExist = 1
+//def tempBranchExist = 1
 
 //Script for the branch, you can reference the previous script value witn the "REPO" variable
 def credsId = """def credsNames = []
