@@ -1,4 +1,3 @@
-import groovy.transform.Field
 /* groovylint-disable LineLength */
 //def dockerHubUser = "shemerofir"
 def usernames = """return[
@@ -6,10 +5,10 @@ def usernames = """return[
 'nirgeier'
 ]"""
 
-@Field String[] chosenRepos
-@Field branchExist = 1
+String[] chosenRepos
+branchExist = 1
 //def chosenRepo
-@Field tempBranchExist = 1
+tempBranchExist = 1
 
 //Script for the branch, you can reference the previous script value witn the "REPO" variable
 def credsId = """def credsNames = []
@@ -234,7 +233,6 @@ pipeline {
         }
         stage('checkout scm') {
             when {
-                
                 expression { params.BRANCHTOCREATE != 'ENTER-BRANCH-NAME' }
                 expression { params.BRANCHTOCLONE != 'ENTER-BRANCH-CLONE-SOURCE' }
             }
@@ -248,14 +246,15 @@ pipeline {
                     chosenRepos = params.REPO.split(',')
 
                     for ( def chosenRepo in chosenRepos ) {
-                        sh """
-                        #!/bin/bash
-                        tempBranchExist=`git ls-remote --heads git@github.com:${params.USERNAME}/${chosenRepo}.git ${params.BRANCHTOCLONE} | wc -l`
+
+                        tempBranchExist =  sh(returnStdout: true, script: """ `git ls-remote --heads git@github.com:${params.USERNAME}/${chosenRepo}.git ${params.BRANCHTOCLONE} | wc -l` """)
                         echo $tempBranchExist
-                        if [ $tempBranchExist -eq 0 ]; then
-                        branchExist=0;
-                        fi """
-                     }
+    
+                        if ( $tempBranchExist == 0 ){
+                            branchExist = 0;
+                        }
+
+                    }
 
                     if ( branchExist != 0 ) {
                         sh '''#!/bin/bash
