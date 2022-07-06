@@ -256,7 +256,7 @@ pipeline {
 
                         echo "temp branch exits value is : $tempBranchExist "
     
-                        if ( $tempBranchExist != 200 ){
+                        if ( tempBranchExist != 200 ){
                             branchExist = 0;
                         }
 
