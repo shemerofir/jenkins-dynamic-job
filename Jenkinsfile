@@ -272,7 +272,7 @@ pipeline {
                                 dir("./${chosenRepo}") {
                                         echo "you are on branch: ${env.BRANCH_NAME} "
 
-                                        sh "git checkout -b ${params.BRANCHTOCREAATE}"
+                                        sh "git checkout -b ${params.BRANCHTOCREATE}"
 
                                         echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${chosenRepo}!*************"
 
