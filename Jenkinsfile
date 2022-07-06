@@ -249,13 +249,13 @@ pipeline {
 
                         tempBranchExist =  sh(returnStdout: true, script: """
                                             #!/bin/bash
-                                            `git ls-remote --heads git@github.com:${params.USERNAME}/${chosenRepo}.git ${params.BRANCHTOCLONE} | wc -l`
+                                            `curl -s -o /dev/null -w "%{http_code}" https://api.github.com/repos/${params.USERNAME}/${chosenRepo}/branches/${params.BRANCHTOCLONE}`
                                             """)
 
                         tempBranchExist = tempBranchExist.trim()
                         echo "temp branch exits value is : $tempBranchExist "
     
-                        if ( $tempBranchExist == 0 ){
+                        if ( $tempBranchExist != 200 ){
                             branchExist = 0;
                         }
 
