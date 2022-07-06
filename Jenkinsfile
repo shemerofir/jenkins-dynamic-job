@@ -245,9 +245,10 @@ pipeline {
                     chosenRepos = params.REPO.split(',')
 
                     for ( def chosenRepo in chosenRepos ) {
-                        if ( sh "$(git ls-remote --heads git@github.com:${params.USERNAME}/${chosenRepo}.git ${params.BRANCHTOCLONE} | wc -l)" == 0 ) {
-                            branchExist = false
-                    } }
+                        sh """ if [[ $(git ls-remote --heads git@github.com:shemerofir/test1.git main | wc -l) == 0 ]]; then 
+                            branchExist = false;
+                            fi """
+                     }
 
                     if (branchExist) {
                         sh '''#!/bin/bash
