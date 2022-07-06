@@ -7,7 +7,7 @@ def usernames = """return[
 String[] chosenRepos
 def branchExist = 1
 //def chosenRepo
-def tempBranchExist
+def tempBranchExist = 1
 
 //Script for the branch, you can reference the previous script value witn the "REPO" variable
 def credsId = """def credsNames = []
@@ -248,14 +248,14 @@ pipeline {
                     for ( def chosenRepo in chosenRepos ) {
                         sh """
                         #!/bin/bash
-                        tempBranchExist=\$(git ls-remote --heads git@github.com:${params.USERNAME}/${chosenRepo}.git ${params.BRANCHTOCLONE} | wc -l)
-                        if [[ tempBranchExist == 0 ]]; then
-                        branchExist=0;
+                        $tempBranchExist=\$(git ls-remote --heads git@github.com:${params.USERNAME}/${chosenRepo}.git ${params.BRANCHTOCLONE} | wc -l)
+                        if [ $tempBranchExist == 0 ]; then
+                        $branchExist=0;
                         fi
                         """
                      }
 
-                    if (branchExist != 0) {
+                    if ( ${branchExist} != 0 ) {
                         sh '''#!/bin/bash
                             mkdir ../repos;
                             pwd;
