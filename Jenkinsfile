@@ -257,7 +257,7 @@ pipeline {
                         """
                      }
 
-                    if ( ${branchExist} != 0 ) {
+                    if ( branchExist != 0 ) {
                         sh '''#!/bin/bash
                             mkdir ../repos;
                             pwd;
