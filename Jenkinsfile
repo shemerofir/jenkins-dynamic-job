@@ -5,9 +5,12 @@ def usernames = """return[
 'nirgeier'
 ]"""
 
+@Field
 String[] chosenRepos
+@Field
 branchExist = 1
 //def chosenRepo
+@Field
 tempBranchExist = 1
 
 //Script for the branch, you can reference the previous script value witn the "REPO" variable
