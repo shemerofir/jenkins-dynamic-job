@@ -259,12 +259,12 @@ pipeline {
 
                         echo "temp branch exits value is : ${VAR_NAME}"
     
-                        if ( VAR_NAME != 200 ){
-                            branchExist = 0;
+                        if ( ${VAR_NAME} != 200 ){
+                            branchExist = 0
                         }
 
                     }
-
+                     echo "branch exits value is : ${branchExist}"
                     if ( branchExist != 0 ) {
                         sh '''#!/bin/bash
                             mkdir ../repos;
