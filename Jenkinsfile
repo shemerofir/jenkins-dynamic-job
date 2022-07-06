@@ -5,7 +5,7 @@ def usernames = """return[
 ]"""
 
 String[] chosenRepos
-def branchExist = true
+def branchExist = 1
 //def chosenRepo
 
 //Script for the branch, you can reference the previous script value witn the "REPO" variable
@@ -245,12 +245,12 @@ pipeline {
                     chosenRepos = params.REPO.split(',')
 
                     for ( def chosenRepo in chosenRepos ) {
-                        sh """ if [[ $(git ls-remote --heads git@github.com:shemerofir/test1.git main | wc -l) == 0 ]]; then 
-                            branchExist = false;
+                        sh """ if [[ (git ls-remote --heads git@github.com:shemerofir/test1.git main | wc -l) == 0 ]]; then 
+                            branchExist=0;
                             fi """
                      }
 
-                    if (branchExist) {
+                    if (branchExist != 0) {
                         sh '''#!/bin/bash
                             mkdir ../repos;
                             pwd;
