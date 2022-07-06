@@ -1,3 +1,4 @@
+/* groovylint-disable LineLength */
 //def dockerHubUser = "shemerofir"
 def usernames = """return[
 'shemerofir',
@@ -248,8 +249,9 @@ pipeline {
                     for ( def chosenRepo in chosenRepos ) {
                         sh """
                         #!/bin/bash
-                        ${tempBranchExist}=\$(git ls-remote --heads git@github.com:${params.USERNAME}/${chosenRepo}.git ${params.BRANCHTOCLONE} | wc -l)
-                        if [ ${tempBranchExist} == 0 ]; then
+                        tempBranchExist=\$(git ls-remote --heads git@github.com:${params.USERNAME}/${chosenRepo}.git ${params.BRANCHTOCLONE} | wc -l)
+                        echo ${tempBranchExist}
+                        if [ tempBranchExist == 0 ]; then
                         ${branchExist}=0;
                         fi
                         """
