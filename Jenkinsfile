@@ -248,7 +248,7 @@ pipeline {
                     for ( def chosenRepo in chosenRepos ) {
 
                         tempBranchExist =  sh(returnStdout: true, script: """ `git ls-remote --heads git@github.com:${params.USERNAME}/${chosenRepo}.git ${params.BRANCHTOCLONE} | wc -l` """)
-                        echo $tempBranchExist
+                        echo "temp branch exits value is : $tempBranchExist "
     
                         if ( $tempBranchExist == 0 ){
                             branchExist = 0;
