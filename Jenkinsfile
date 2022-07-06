@@ -247,12 +247,13 @@ pipeline {
 
                     for ( def chosenRepo in chosenRepos ) {
 
-                        tempBranchExist =  sh(returnStdout: true, script: """
+                        tempBranchExist =  sh(script: """
                                             #!/bin/bash
                                             `curl -s -o /dev/null -w "%{http_code}" https://api.github.com/repos/${params.USERNAME}/${chosenRepo}/branches/${params.BRANCHTOCLONE}`
-                                            """)
+                                            """,
+                                            returnStatus: true,
+                                            returnStdout : boolean).trim()
 
-                        tempBranchExist = tempBranchExist.trim()
                         echo "temp branch exits value is : $tempBranchExist "
     
                         if ( $tempBranchExist != 200 ){
