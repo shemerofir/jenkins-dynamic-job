@@ -249,14 +249,17 @@ pipeline {
 
                         tempBranchExist =  sh(script: """
                                             #!/bin/bash
-                                            `curl -s -o /dev/null -w "%{http_code}" https://api.github.com/repos/${params.USERNAME}/${chosenRepo}/branches/${params.BRANCHTOCLONE}`
+                                            VAR_NAME=`curl -s -o /dev/null -w "%{http_code}" https://api.github.com/repos/${params.USERNAME}/${chosenRepo}/branches/${params.BRANCHTOCLONE}`
+                                            echo \$VAR_NAME
                                             """,
                                             returnStatus: false,
                                             returnStdout : true)
+                        tempBranchExist = tempBranchExist.trim()
+                        VAR_NAME = tempBranchExist
 
-                        echo "temp branch exits value is : $tempBranchExist "
+                        echo "temp branch exits value is : ${VAR_NAME}"
     
-                        if ( tempBranchExist != 200 ){
+                        if ( VAR_NAME != 200 ){
                             branchExist = 0;
                         }
 
