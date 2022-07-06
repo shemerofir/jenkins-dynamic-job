@@ -2,12 +2,10 @@
 def usernames = """return[
 'shemerofir',
 'nirgeier'
-]""";
+]"""
 
-def IFS = ','
-def strarr
-String[] chosenRepos;
-def currentBranch;
+String[] chosenRepos
+def branchExist = true
 //def chosenRepo
 
 //Script for the branch, you can reference the previous script value witn the "REPO" variable
@@ -59,9 +57,9 @@ if (getRC.equals(200)) {
 
     item.each { repo ->
         names.push(repo.name);
-    }   
+    }
     return names;
-}""";
+}"""
 
 //Script for the branch, you can reference the previous script value witn the "REPO" variable
 def branchScript = """import groovy.json.JsonSlurper
@@ -97,110 +95,110 @@ if (getRCBranches.equals(200)) {
 
     itemBr.each { branch ->
         namesBr.push(branch.name);
-    } 
+    }
     return namesBr;
-}""";
+}"""
 
 pipeline {
     agent any
     stages {
-        stage('Parameters'){
+        stage('Parameters') {
             steps {
                 script {
-                properties([
+                    properties([
                         //Creating the parameters, make sure you have Active Choice plugin installed
-                        parameters([  [$class: 'ChoiceParameter', 
+                        parameters([  [$class: 'ChoiceParameter',
                                 //Single combo-box item select type of choice
-                                choiceType: 'PT_SINGLE_SELECT', 
-                                description: 'Select the github account', 
-                                filterLength: 1, 
-                                filterable: false, 
+                                choiceType: 'PT_SINGLE_SELECT',
+                                description: 'Select the github account',
+                                filterLength: 1,
+                                filterable: false,
                                 //Important for identify it in the cascade choice parameter and the params. values
-                                name: 'USERNAME', 
+                                name: 'USERNAME',
                                 script: [
-                                    $class: 'GroovyScript', 
+                                    $class: 'GroovyScript',
                                     //Error script
                                     fallbackScript: [
-                                        classpath: [], 
-                                        sandbox: false, 
-                                        script: 
+                                        classpath: [],
+                                        sandbox: false,
+                                        script:
                                             "return['No accounts registered on pipeline']"
-                                    ], 
+                                    ],
                                     script: [
-                                        classpath: [], 
-                                        sandbox: false, 
+                                        classpath: [],
+                                        sandbox: false,
                                         //Calling local variable with the script as a string
                                         script: "${usernames}"
-                                        
+
                                     ]
                                 ]
                             ],
-                            [$class: 'ChoiceParameter', 
+                            [$class: 'ChoiceParameter',
                                 //Single combo-box item select type of choice
-                                choiceType: 'PT_SINGLE_SELECT', 
-                                description: 'Select the credentialID for the Personal Access Token (optional) - Secret Text Type expeceted', 
-                                filterLength: 1, 
-                                filterable: true, 
+                                choiceType: 'PT_SINGLE_SELECT',
+                                description: 'Select the credentialID for the Personal Access Token (optional) - Secret Text Type expeceted',
+                                filterLength: 1,
+                                filterable: true,
                                 //Important for identify it in the cascade choice parameter and the params. values
-                                name: 'CREDENTIAL', 
+                                name: 'CREDENTIAL',
                                 script: [
-                                    $class: 'GroovyScript', 
+                                    $class: 'GroovyScript',
                                     //Error script
                                     fallbackScript: [
-                                        classpath: [], 
-                                        sandbox: false, 
-                                        script: 
+                                        classpath: [],
+                                        sandbox: false,
+                                        script:
                                             "return['Could not get the credentials IDs']"
-                                    ], 
+                                    ],
                                     script: [
-                                        classpath: [], 
-                                        sandbox: false, 
+                                        classpath: [],
+                                        sandbox: false,
                                         //Calling local variable with the script as a string
                                         script: "${credsId}"
-                                        
+
                                     ]
                                 ]
                             ],
-                            [$class: 'CascadeChoiceParameter', 
+                            [$class: 'CascadeChoiceParameter',
                                 //Single combo-box item select type of choice
-                                choiceType: 'PT_CHECKBOX', 
-                                description: 'Select the Repository from the Dropdown List', 
-                                filterLength: 1, 
-                                filterable: true, 
-                                referencedParameters: 'CREDENTIAL, USERNAME', 
+                                choiceType: 'PT_CHECKBOX',
+                                description: 'Select the Repository from the Dropdown List',
+                                filterLength: 1,
+                                filterable: true,
+                                referencedParameters: 'CREDENTIAL, USERNAME',
                                 //Important for identify it in the cascade choice parameter and the params. values
-                                name: 'REPO', 
+                                name: 'REPO',
                                 script: [
-                                    $class: 'GroovyScript', 
+                                    $class: 'GroovyScript',
                                     //Error script
                                     fallbackScript: [
-                                        classpath: [], 
-                                        sandbox: false, 
-                                        script: 
+                                        classpath: [],
+                                        sandbox: false,
+                                        script:
                                             "return['Could not get The Repos']"
-                                    ], 
+                                    ],
                                     script: [
-                                        classpath: [], 
-                                        sandbox: false, 
+                                        classpath: [],
+                                        sandbox: false,
                                         //Calling local variable with the script as a string
                                         script: "${repoScript}"
-                                        
+
                                     ]
                                 ]
                             ],
                             //Cascade choice, means you can reference other choice values, like in this case, the REPO
                             //Also, re-runs this scripts every time the referenced choice value changes.
-                            [$class: 'CascadeChoiceParameter', 
-                                choiceType: 'PT_SINGLE_SELECT', 
+                            [$class: 'CascadeChoiceParameter',
+                                choiceType: 'PT_SINGLE_SELECT',
                                 description: 'Select the Branch from the Dropdown List',
-                                name: 'BRANCH',                                
-                                filterable: true, 
+                                name: 'BRANCH',
+                                filterable: true,
                                 //Referencing the repo
-                                referencedParameters: 'REPO, CREDENTIAL, USERNAME', 
-                                script: 
-                                    [$class: 'GroovyScript', 
+                                referencedParameters: 'REPO, CREDENTIAL, USERNAME',
+                                script:
+                                    [$class: 'GroovyScript',
                                     fallbackScript: [
-                                            classpath: [], 
+                                            classpath: [],
                                             sandbox: false,
                                             script: "return['Could not get Branch from the Repo']"
                                             ],
@@ -209,112 +207,81 @@ pipeline {
                                             sandbox: false,
                                             //branchScript variable
                                             script: "${branchScript}"
-                                    ] 
+                                    ]
                                 ]
                             ],
                              string(
                                 defaultValue: 'ENTER-BRANCH-CLONE-SOURCE',
                                 name: 'BRANCHTOCLONE',
                                 trim: true
-                                
+
                             ),
                              string(
                                 defaultValue: 'ENTER-BRANCH-NAME',
                                 name: 'BRANCHTOCREATE',
                                 trim: true
-                                
+
                             )
-                            
+
                         ])
-                        
+
                     ])
-                    
                 }
-                
             }
         }
         stage('checkout scm') {
-            when{
-                expression { params.BRANCHTOCREATE != 'ENTER-BRANCH-NAME'}
-                expression { params.BRANCHTOCLONE != 'ENTER-BRANCH-CLONE-SOURCE'}
+            when {
+                
+                expression { params.BRANCHTOCREATE != 'ENTER-BRANCH-NAME' }
+                expression { params.BRANCHTOCLONE != 'ENTER-BRANCH-CLONE-SOURCE' }
             }
             steps {
-                
-                
                 echo "${params.BRANCHTOCREATE}"
                 echo "${params.USERNAME}"
-               
-            script {
 
-                sh """git config --global user.email "shemerofir@gmail.com" && git config --global user.name "shemerofir" """
+                script {
+                    sh '''git config --global user.email "shemerofir@gmail.com" && git config --global user.name "shemerofir" '''
 
-                chosenRepos = params.REPO.split(',');
+                    chosenRepos = params.REPO.split(',')
 
-                    sh '''#!/bin/bash 
-                        mkdir ../repos;
-                        pwd;
-                        cd ../repos;
-                        pwd;
-                        ''' 
-                
-                dir('../repos') { 
-                for( def chosenRepo in chosenRepos ){
+                    for ( def chosenRepo in chosenRepos ) {
+                        if ( sh "git ls-remote --heads git@github.com:${params.USERNAME}/${chosenRepo}.git ${params.BRANCHTOCLONE} | wc -l" == 0 ) {
+                            branchExist = false
+                    } }
 
-                    sh "rm -rf ${chosenRepo}"
-                    
-                    sh "git clone --branch ${params.BRANCHTOCLONE} git@github.com:${params.USERNAME}/${chosenRepo}.git"
-                    //sh "git clone --branch ${params.BRANCHTOCLONE} --single-branch git@github.com:${params.USERNAME}/${chosenRepo}.git"
-                    //sh "git clone git@github.com:${params.USERNAME}/${chosenRepo}.git" 
-                    
-                    dir("./${chosenRepo}"){
-    
-                    //sh "git checkout ${params.BRANCHTOCLONE}"
-                    echo "you are on branch: ${env.BRANCH_NAME} "
+                    if (branchExist) {
+                        sh '''#!/bin/bash
+                            mkdir ../repos;
+                            pwd;
+                            cd ../repos;
+                            pwd;
+                            '''
 
-                    //if (env.BRANCH_NAME != params.BRANCHTOCREATE) {
-                        sh "git checkout -b ${params.BRANCHTOCREATE}"
-                        //env.BRANCH_NAME = params.BRANCHTOCREATE 
-                   //     }
-                   // else {
-                    //    sh "git checkout ${params.BRANCHTOCREATE}"
-                    //    }
+                        dir('../repos') {
+                                for ( def chosenRepo in chosenRepos ) {
+                                sh "rm -rf ${chosenRepo}"
 
-                    echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${chosenRepo}!*************"
-                    //sh "git add ."
+                                sh "git clone --branch ${params.BRANCHTOCLONE} git@github.com:${params.USERNAME}/${chosenRepo}.git"
 
-                    //sh """git commit -m "copied ${chosenRepo}" """
+                                dir("./${chosenRepo}") {
+                                        echo "you are on branch: ${env.BRANCH_NAME} "
 
-                    sh "git push --set-upstream git@github.com:${params.USERNAME}/${chosenRepo}.git"
-                            }
+                                        sh "git checkout -b ${params.BRANCHTOCREAATE}"
 
-                    sh "rm -rf ${chosenRepo}"
-                    }}
-            }
+                                        echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${chosenRepo}!*************"
 
-                // sh """ 
-                //    read -a ${strarr} <<< "${params.REPO}"
-                //     for repo in ${strarr}; do
-                //     rm -rf ${repo}
-                //     git clone git@github.com:${params.USERNAME}/${repo}.git
-                //     git checkout -b ${params.BRANCHTOCREATE}
-                //     echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${repo}!*************"
-                //     git push git@github.com:${params.USERNAME}/${repo}.git
-                //     done"""
+                                        sh "git push --set-upstream git@github.com:${params.USERNAME}/${chosenRepo}.git"
+                                }
 
+                                sh "rm -rf ${chosenRepo}"
+                                }
+                        }
 
-
-                // sh "rm -rf ${params.REPO}"
-                // sh "git clone git@github.com:${params.USERNAME}/${params.REPO}.git"
-                // sh "git checkout -b ${params.BRANCHTOCREATE}"
-                // echo "*********branch ${params.BRANCHTOCREATE} created!*************"
-                // sh "git push git@github.com:${params.USERNAME}/${params.REPO}.git"
-
-                
-                sh "rm -rf ../repos"
+                        sh 'rm -rf ../repos'
+                    }
+                }
             }
         }
-
-
     }
-    
 }
+//git ls-remote --heads git@github.com:shemerofir/test1.git main | wc -l
