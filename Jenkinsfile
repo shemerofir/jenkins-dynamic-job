@@ -284,7 +284,7 @@ pipeline {
                         }
 
                         sh 'rm -rf ../repos'
-                    }
+                    } else { echo "the branch ${params.BRANCHTOCLONE} does not exit in one of the chosen repos - cant clone" }
                 }
             }
         }
