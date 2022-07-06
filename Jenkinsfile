@@ -249,7 +249,7 @@ pipeline {
                     for ( def chosenRepo in chosenRepos ) {
                         sh """
                         #!/bin/bash
-                        tempBranchExist=\$(git ls-remote --heads git@github.com:${params.USERNAME}/${chosenRepo}.git ${params.BRANCHTOCLONE} | wc -l)
+                        tempBranchExist=$(git ls-remote --heads git@github.com:${params.USERNAME}/${chosenRepo}.git ${params.BRANCHTOCLONE} | wc -l)
                         echo ${tempBranchExist}
                         if [ tempBranchExist == 0 ]; then
                         ${branchExist}=0;
