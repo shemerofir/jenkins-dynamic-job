@@ -7,7 +7,6 @@ def usernames = """return[
 
 String[] chosenRepos
 branchExist = 1
-//def chosenRepo
 tempBranchExist = 1
 
 //Script for the branch, you can reference the previous script value witn the "REPO" variable
@@ -219,8 +218,8 @@ pipeline {
 
                             ),
                              string(
-                                defaultValue: 'ENTER-BRANCH-NAME',
-                                name: 'BRANCHTOCREATE',
+                                defaultValue: 'ENTER-BRANCH-NAME-TO-DELETE',
+                                name: 'BRANCHTODELETE',
                                 trim: true
 
                             )
@@ -233,11 +232,11 @@ pipeline {
         }
         stage('checkout scm') {
             when {
-                expression { params.BRANCHTOCREATE != 'ENTER-BRANCH-NAME' }
+                expression { params.BRANCHTODELETE != 'ENTER-BRANCH-NAME-TO-DELETE' }
                 expression { params.BRANCHTOCLONE != 'ENTER-BRANCH-CLONE-SOURCE' }
             }
             steps {
-                echo "${params.BRANCHTOCREATE}"
+                echo "${params.BRANCHTODELETE}"
                 echo "${params.USERNAME}"
 
                 script {
@@ -282,11 +281,11 @@ pipeline {
                                 dir("./${chosenRepo}") {
                                         echo "you are on branch: ${env.BRANCH_NAME} "
 
-                                        sh "git checkout -b ${params.BRANCHTOCREATE}"
+                                        echo "*********branch ${params.BRANCHTODELETE} created in repo: ${chosenRepo}!*************"
 
-                                        echo "*********branch ${params.BRANCHTOCREATE} created in repo: ${chosenRepo}!*************"
+                                        sh "git push git@github.com:${params.USERNAME}/${chosenRepo}.git --delete ${params.BRANCHTODELETE}"
 
-                                        sh "git push --set-upstream git@github.com:${params.USERNAME}/${chosenRepo}.git"
+                                        echo "*********branch ${params.BRANCHTODELETE} is deleted in repo: ${chosenRepo}!*************"
                                 }
 
                                 sh "rm -rf ${chosenRepo}"
@@ -294,7 +293,7 @@ pipeline {
                         }
 
                         sh 'rm -rf ../repos'
-                    } else { error "the branch ${params.BRANCHTOCLONE} does not exit in one of the chosen repos - cant clone" }
+                    } else { error "the branch ${params.BRANCHTOCLONE} does not exist in one of the chosen repos - cant delete" }
                 }
             }
         }
