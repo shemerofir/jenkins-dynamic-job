@@ -99,8 +99,8 @@ if (getRCBranches.equals(200)) {
     }
         for (def i=0; i<namesBr.size(); i++){
         namesBr[i] +=":disabled"
-    } 
-    
+    }
+
     return namesBr;
 }"""
 
@@ -195,7 +195,7 @@ pipeline {
                             //Also, re-runs this scripts every time the referenced choice value changes.
                             [$class: 'CascadeChoiceParameter',
                                 choiceType: 'PT_SINGLE_SELECT',
-                                description: 'Select the Branch from the Dropdown List',
+                                description: 'Repository Branch List:',
                                 name: 'BRANCH',
                                 filterable: true,
                                 //Referencing the repo
@@ -216,6 +216,7 @@ pipeline {
                                 ]
                             ],
                              string(
+                                description: 'Please Enter Branch To Delete:',
                                 defaultValue: 'ENTER-BRANCH-NAME-TO-DELETE',
                                 name: 'BRANCHTODELETE',
                                 trim: true
