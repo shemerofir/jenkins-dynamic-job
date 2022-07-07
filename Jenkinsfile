@@ -97,12 +97,10 @@ if (getRCBranches.equals(200)) {
     itemBr.each { branch ->
         namesBr.push(branch.name);
     }
-    namesBr.each
-
-    for (def i=0; i<namesBR.size(); i++){
-        namesBR[i] +=":disabled"
-    }
-
+        for (def i=0; i<namesBr.size(); i++){
+        namesBr[i] +=":disabled"
+    } 
+    
     return namesBr;
 }"""
 
