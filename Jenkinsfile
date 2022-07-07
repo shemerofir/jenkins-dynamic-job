@@ -212,12 +212,6 @@ pipeline {
                                 ]
                             ],
                              string(
-                                defaultValue: 'ENTER-BRANCH-CLONE-SOURCE',
-                                name: 'BRANCHTOCLONE',
-                                trim: true
-
-                            ),
-                             string(
                                 defaultValue: 'ENTER-BRANCH-NAME-TO-DELETE',
                                 name: 'BRANCHTODELETE',
                                 trim: true
@@ -233,7 +227,7 @@ pipeline {
         stage('checkout scm') {
             when {
                 expression { params.BRANCHTODELETE != 'ENTER-BRANCH-NAME-TO-DELETE' }
-                expression { params.BRANCHTOCLONE != 'ENTER-BRANCH-CLONE-SOURCE' }
+                
             }
             steps {
                 echo "${params.BRANCHTODELETE}"
@@ -248,7 +242,7 @@ pipeline {
 
                         tempBranchExist =  sh(script: """
                                             #!/bin/bash
-                                            VAR_NAME=`curl -s -o /dev/null -w "%{http_code}" https://api.github.com/repos/${params.USERNAME}/${chosenRepo}/branches/${params.BRANCHTOCLONE}`
+                                            VAR_NAME=`curl -s -o /dev/null -w "%{http_code}" https://api.github.com/repos/${params.USERNAME}/${chosenRepo}/branches/${params.BRANCHTODELETE}`
                                             echo \$VAR_NAME
                                             """,
                                             returnStatus: false,
@@ -276,7 +270,7 @@ pipeline {
                                 for ( def chosenRepo in chosenRepos ) {
                                 sh "rm -rf ${chosenRepo}"
 
-                                sh "git clone --branch ${params.BRANCHTOCLONE} git@github.com:${params.USERNAME}/${chosenRepo}.git"
+                                sh "git clone --branch ${params.BRANCHTODELETE} git@github.com:${params.USERNAME}/${chosenRepo}.git"
 
                                 dir("./${chosenRepo}") {
                                         echo "you are on branch: ${env.BRANCH_NAME} "
@@ -293,7 +287,7 @@ pipeline {
                         }
 
                         sh 'rm -rf ../repos'
-                    } else { error "the branch ${params.BRANCHTOCLONE} does not exist in one of the chosen repos - cant delete" }
+                    } else { error "the branch ${params.BRANCHTODELETE} does not exist in one of the chosen repos - cant delete" }
                 }
             }
         }
