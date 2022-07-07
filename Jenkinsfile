@@ -300,4 +300,4 @@ pipeline {
         }
     }
 }
-//git ls-remote --heads git@github.com:shemerofir/test1.git main | wc -l
+
