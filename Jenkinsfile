@@ -241,7 +241,7 @@ pipeline {
                 echo "${params.USERNAME}"
 
                 script {
-                    sh '''git config --global user.email "shemerofir@gmail.com" && git config --global user.name "shemerofir" '''
+                    //sh '''git config --global user.email "shemerofir@gmail.com" && git config --global user.name "shemerofir" '''
 
                     chosenRepos = params.REPO.split(',')
 
