@@ -25,11 +25,6 @@ for (cred in creds) {
 
 return credsIds;""";
 
-def repoTextScript = """ 
-def list = new File( 'repos.txt' ).text.readLines()
-return list
-"""
-
 def repoScript = """import groovy.json.JsonSlurper
 
 def creds = com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
@@ -188,7 +183,7 @@ pipeline {
                                         classpath: [],
                                         sandbox: false,
                                         //Calling local variable with the script as a string
-                                        script: "${repoTextScript}"
+                                        script: "${repoScript}"
 
                                     ]
                                 ]
