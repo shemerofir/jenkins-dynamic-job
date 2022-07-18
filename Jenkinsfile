@@ -165,8 +165,6 @@ pipeline {
                                 //Single combo-box item select type of choice
                                 choiceType: 'PT_RADIO',
                                 description: 'Select All',
-                                filterLength: 1,
-                                filterable: false,
                                 //Important for identify it in the cascade choice parameter and the params. values
                                 name: 'SELECTIONS',
                                 script: [
@@ -182,7 +180,7 @@ pipeline {
                                         classpath: [],
                                         sandbox: false,
                                         //Calling local variable with the script as a string
-                                        script: "return['select all', 'deselect all']"
+                                        script: "return['select all','deselect all']"
 
                                     ]
                                 ]
