@@ -161,6 +161,32 @@ pipeline {
                                     ]
                                 ]
                             ],
+                            [$class: 'ChoiceParameter',
+                                //Single combo-box item select type of choice
+                                choiceType: 'PT_RADIO',
+                                description: 'Select All',
+                                filterLength: 1,
+                                filterable: false,
+                                //Important for identify it in the cascade choice parameter and the params. values
+                                name: 'SELECTIONS',
+                                script: [
+                                    $class: 'GroovyScript',
+                                    //Error script
+                                    fallbackScript: [
+                                        classpath: [],
+                                        sandbox: false,
+                                        script:
+                                            "return['error']"
+                                    ],
+                                    script: [
+                                        classpath: [],
+                                        sandbox: false,
+                                        //Calling local variable with the script as a string
+                                        script: "return['select all', 'deselect all']"
+
+                                    ]
+                                ]
+                            ],
                             [$class: 'CascadeChoiceParameter',
                                 //Single combo-box item select type of choice
                                 choiceType: 'PT_CHECKBOX',
