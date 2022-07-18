@@ -60,6 +60,12 @@ if (getRC.equals(200)) {
     item.each { repo ->
         names.push(repo.name);
     }
+
+if (SELECTIONS.equals('select all')){
+            for (def i=0; i<names.size(); i++){
+        names[i] +=":selected"
+    }
+}
     return names;
 }"""
 
