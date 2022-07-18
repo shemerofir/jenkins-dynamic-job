@@ -197,7 +197,7 @@ pipeline {
                                 description: 'Select the Repository from the Dropdown List',
                                 filterLength: 1,
                                 filterable: true,
-                                referencedParameters: 'CREDENTIAL, USERNAME',
+                                referencedParameters: 'CREDENTIAL, USERNAME, SELECTIONS',
                                 //Important for identify it in the cascade choice parameter and the params. values
                                 name: 'REPO',
                                 script: [
